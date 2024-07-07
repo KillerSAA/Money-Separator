@@ -9,7 +9,7 @@ MYMODCFG(net.KillerSA.moneyseparator, Money Separator, 1.1, KillerSA)
 static std::string AddSeparators(std::string aValue) 
 {
     const char* sep = cfg->GetString("Separator", ".", "Configs");
-    char aThousandSep = sep[0]; // if it says "word" the separator will be "w"
+    char aThousandSep = sep[0]; // if you put "word" the separator will be "w"
 
     int len = aValue.length();
     int value = (len > 0 && (aValue[0] == '-')) ? 2 : 1;
