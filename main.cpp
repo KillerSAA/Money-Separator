@@ -37,7 +37,8 @@ extern "C" void OnModLoad()
 {
     logger->SetTag("Money Separator");
     cfg->Bind("Author", "", "About")->SetString("KillerSA"); cfg->ClearLast();
-
+    cfg->Bind("GitHub", "", "About")->SetString("https://github.com/KillerSAA/Money-Separator/tree/main"); cfg->ClearLast();
+    
     uintptr_t pGame = aml->GetLib("libGTASA.so");
     if(pGame)
     {
