@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdio.h>
 #include <mod/amlmod.h>
 
 using namespace std;
