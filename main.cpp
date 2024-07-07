@@ -10,6 +10,9 @@ MYMOD(net.KillerSA.MoneySeparator, Money separator, 1.0, KillerSA)
 void* hGTASA = aml->GetLibHandle("libGTASA.so");
 uintptr_t pGTASA = aml->GetLib("libGTASA.so");
 
+// function
+void (*AsciiToGxt)(const char* txt, unsigned short* ret);
+
 static std::string AddSeparators(std::string aValue, char aThousandSep = '.') 
 {
 int len = aValue.length();
@@ -27,15 +30,15 @@ len += 1;
 return aValue;
 }
 
-void (*AsciiToGxt)(const char* txt, unsigned short* ret);
 
-extern "C" void AsciiToGxtChar(const char* aSource, unsigned short* aTarget)
+
+extern "C" void AsciiToGxtChar(const char* txt, unsigned short* aTarget)
 {
-	std::string source = std::string{ aSource };
+	std::string source = std::string{ txt };
 	std::string sep = AddSeparators(source);
-    aSource = sep.c_str();
+    txt = sep.c_str();
     
-    AsciiToGxt(aSource, aTarget);
+    AsciiToGxt(txt, aTarget);
 	return;
 }
 
