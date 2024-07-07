@@ -17,7 +17,7 @@ extern "C" void AsciiToGxtChar(const char* aSource, unsigned short* aTarget)
 	return;
 }
 
-uintptr_t ret = NULL;
+uintptr_t ret;
 __attribute__((optnone)) __attribute__((naked)) void Money_Inject(void){
     asm volatile(
         "MOV R0, R10\n"
