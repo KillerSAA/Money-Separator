@@ -1,6 +1,5 @@
 #include <string>
 #include <mod/amlmod.h>
-#include <mod/logger.h>
 
 uintptr_t pGTASA;
 void* hGTASA = NULL;
