@@ -1,12 +1,16 @@
-// A port from PC to Android (https://github.com/The-Musaigen/money-separator)
+// A port from PC to Android (https://github.com/The-Musaigen/money-separator) | thanks for RussJJ
 #include <mod/amlmod.h>
+#include <mod/config.h>
 #include <mod/logger.h>
 #include <string>
 
-MYMOD(net.KillerSA.MoneySeparator, Money Separator, 1.1, KillerSA)
+MYMODCFG(net.KillerSA.moneyseparator, Money Separator, 1.1, KillerSA)
 
-static std::string AddSeparators(std::string aValue, char aThousandSep = '.') 
+static std::string AddSeparators(std::string aValue) 
 {
+    const char* sep = cfg->GetString("Separator", ".", "Configs");
+    char aThousandSep = sep[0]; // if it says "word" the separator will be "w"
+
     int len = aValue.length();
     int value = (len > 0 && (aValue[0] == '-')) ? 2 : 1;
     int size = 3;
@@ -32,7 +36,8 @@ DECL_HOOKv(Money_AsciiToGxtChar, const char* aSource, unsigned short* aTarget)
 extern "C" void OnModLoad()
 {
     logger->SetTag("Money Separator");
-    
+    cfg->Bind("Author", "", "About")->SetString("KillerSA"); cfg->ClearLast();
+
     uintptr_t pGame = aml->GetLib("libGTASA.so");
     if(pGame)
     {
