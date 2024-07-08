@@ -1,23 +1,23 @@
-// A port from PC to Android (https://github.com/The-Musaigen/money-separator) | thanks for RussJJ
+// A port from PC to Android (https://github.com/The-Musaigen/money-separator) | thanks for RusJJ
 #include <mod/amlmod.h>
 #include <mod/config.h>
 #include <mod/logger.h>
+#include <cctype>
 #include <string>
 
-MYMODCFG(net.KillerSA.moneyseparator, Money Separator, 1.1, KillerSA)
+MYMODCFG(net.KillerSA.moneyseparator, Money Separator, 1.2, KillerSA)
+
+char separator = '.';
 
 static std::string AddSeparators(std::string aValue) 
 {
-    const char* sep = cfg->GetString("Separator", ".", "Configs");
-    char aThousandSep = sep[0]; // if you put "word" the separator will be "w"
-
     int len = aValue.length();
     int value = (len > 0 && (aValue[0] == '-')) ? 2 : 1;
     int size = 3;
 
     while ((len - value) > size)
     {
-        aValue.insert(len - size, 1, aThousandSep);
+        aValue.insert(len - size, 1, separator);
 
         size += 4;
         len += 1;
@@ -57,4 +57,8 @@ extern "C" void OnModLoad()
             return;
         }
     }
+
+    const char* sep = cfg->GetString("Separator", ".", "Configs");
+    if(strcasecmp(sep, "space") == 0) separator = ' ';
+    else if(std::isprint(sep[0])) separator = sep[0];
 }
